@@ -1,0 +1,36 @@
+.swiper {
+  margin-bottom: 50px;
+}
+
+.buttonPrev,
+.buttonNext {
+  top: auto !important;
+  bottom: 0px !important;
+}
+
+.buttonPrev {
+  left: 45% !important;
+  /* transform: translateX(-50%); */
+}
+
+.buttonNext {
+  right: 45% !important;
+  /* transform: translateX(-50%); */
+}
+
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+  .buttonPrev {
+    left: 35% !important;
+    /* transform: translateX(-50%); */
+  }
+
+  .buttonNext {
+    right: 35% !important;
+    /* transform: translateX(-50%); */
+  }
+}
