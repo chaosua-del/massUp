@@ -1,0 +1,68 @@
+.courses__swiper-container .swiper-button-prev,
+.swiper-button-next {
+  top: auto !important;
+  bottom: 0px !important;
+}
+
+.courses__swiper-container .swiper-button-prev {
+  left: 45% !important;
+}
+
+.courses__swiper-container .swiper-button-next {
+  right: 45% !important;
+}
+
+.courses__swiper-container {
+  margin-bottom: 50px;
+}
+
+.courses__swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  border-radius: 50%;
+  background-color: #007bff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: "" !important;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.swiper-button-next::after {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.swiper-button-prev::after {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+
+@media screen and (max-width: 992px) {
+  .courses__swiper-container .swiper-button-prev {
+    left: 35% !important;
+    /* transform: translateX(-50%); */
+  }
+
+  .courses__swiper-container .swiper-button-next {
+    right: 35% !important;
+    /* transform: translateX(-50%); */
+  }
+
+
+
+}

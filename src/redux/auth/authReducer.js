@@ -43,6 +43,7 @@ const user = createReducer(initialUserState, {
     city: payload.user.city,
     country: payload.user.country,
     avatar: payload.user.avatar,
+    id: payload.user._id,
   }),
   [authActions.logOutSuccess]: () => initialUserState,
 });

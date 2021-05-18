@@ -1,31 +1,18 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import axios from "axios";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import config from "../../config";
 import { connect } from "react-redux";
 import styles from "./Profile.module.css";
 import defaultAvatar from "../../images/default-avatar.png";
 import { Link } from "react-router-dom";
-import Slider from "../../components/Slider/Slider";
+import CoachProfile from "./CoachProfile";
+import UserProfile from "./UserProfile";
 import routes from "../../routes";
 
 class MyProfile extends Component {
   state = {
     showModal: false,
   };
-
-  handleClose = () => this.setState({ showModal: false });
-  handleShow = () => this.setState({ showModal: true });
-
-  async componentDidMount() {
-    const { token } = this.props;
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-    await axios
-      .get(`${config.api_url}/users/me`)
-      .then((response) => {})
-      .catch((error) => console.log(error));
-  }
 
   render() {
     const { user } = this.props;
@@ -58,31 +45,27 @@ class MyProfile extends Component {
                 <Card.Text>
                   {user.info ? user.info : "No information given"}
                 </Card.Text>
-                <Link>Edit Profile</Link>
+                <Link to="/editProfile">
+                  <Button variant="secondary">Edit Profile</Button>
+                </Link>
               </Card.Body>
             </Card>
+            <div className="mt-5 d-flex justify-content-center">
+              <Link to={routes.createCourse}>
+                {" "}
+                <Button variant="info" className="mr-2">
+                  New Course
+                </Button>
+              </Link>
+              <Button variant="info">New Group</Button>
+            </div>
           </Col>
         </Row>
+
         {user.role === "coach" ? (
-          <Row className="mt-5 ">
-            <Col xs={12}>
-              <h3 className="text-center mt-2 mb-3">My courses</h3>
-              <Slider
-                classN="courses"
-                createRoute={routes.createCourse}
-              ></Slider>
-            </Col>
-            <Col xs={12}>
-              <h3 className="text-center mt-2 mb-3">My groups</h3>
-              <Slider classN="groups" />
-            </Col>
-            <Col xs={12}>
-              <h3 className="text-center mt-2 mb-3">Feedback</h3>
-              <Slider classN="feedback" />
-            </Col>
-          </Row>
+          <CoachProfile isMyProfile={true} />
         ) : (
-          <Row></Row>
+          <UserProfile />
         )}
       </Container>
     );
@@ -91,7 +74,6 @@ class MyProfile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.auth.token,
     user: state.auth.user,
   };
 };

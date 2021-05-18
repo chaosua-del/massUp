@@ -1,0 +1,14 @@
+img {
+  max-width: 1005;
+}
+
+a {
+  text-decoration: none;
+  /* transition: ; */
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}

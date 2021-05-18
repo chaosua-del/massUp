@@ -2,33 +2,63 @@ import React, { Component } from "react";
 import { Container, Button, Form, Modal } from "react-bootstrap";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState } from "draft-js";
+import { EditorState, ContentState, convertFromHTML } from "draft-js";
 import axios from "axios";
 import config from "../../config";
 import routes from "../../routes";
 import { Link } from "react-router-dom";
+import fetchCourseById from "../../utils/fecthCourseById";
+import draftToHtml from "draftjs-to-html";
 
 export default class CreateCourse extends Component {
   state = {
     courseName: " ",
     courseSaved: false,
     editorState: EditorState.createEmpty(),
-    contentState: {},
+    contentState: {
+      blocks: [],
+      entityMap: {},
+    },
     courseSavedId: "",
   };
+
+  async componentDidMount() {
+    const id = this.props.match.params.id;
+    await fetchCourseById(id)
+      .then((response) => {
+        this.setState((prevState) => {
+          return {
+            courseName: response.data.courseName,
+            contentState: {
+              blocks: response.data.text,
+            },
+            editorState: EditorState.createWithContent(
+              ContentState.createFromBlockArray(
+                convertFromHTML(
+                  draftToHtml({ blocks: response.data.text, entityMap: {} })
+                )
+              )
+            ),
+          };
+        });
+      })
+      .catch((err) => console.log(err));
+  }
 
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState,
     });
 
-    console.log(editorState.getCurrentInlineStyle());
+    console.log(this.state.editorState);
   };
 
   onContentStateChange = (contentState) => {
     this.setState({
       contentState,
     });
+
+    console.log(this.state.contentState);
   };
 
   handleInputChange = ({ target: { name, value } }) => {
@@ -49,10 +79,12 @@ export default class CreateCourse extends Component {
   };
 
   handleFormSubmit = (e) => {
+    const id = this.props.match.params.id;
     e.preventDefault();
 
     axios
-      .post(`${config.api_url}/course`, {
+      .put(`${config.api_url}/course`, {
+        _id: id,
         courseName: this.state.courseName,
         text: this.state.contentState.blocks,
       })
