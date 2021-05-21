@@ -55,6 +55,7 @@ export default class CreateCourse extends Component {
       .post(`${config.api_url}/course`, {
         courseName: this.state.courseName,
         text: this.state.contentState.blocks,
+        entityMap: this.state.contentState.entityMap,
       })
       .then((response) => {
         this.setState({

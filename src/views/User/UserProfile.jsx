@@ -1,5 +1,6 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
 export default function UserProfile() {
-  return <div>userProfile</div>;
+  return <Container></Container>;
 }

@@ -1,129 +1,137 @@
 import React, { Component } from "react";
+import { Modal, Tab, Tabs } from "react-bootstrap";
+import withAuth from "../../hoc/withAuth";
+import { connect } from "react-redux";
+import config from "../../config";
+import axios from "axios";
+import {
+  ChangeMainInfo,
+  ChangeAvatar,
+  ChangeMeasurments,
+  ChangePassword,
+} from "../../components/EditComonents";
 
-export default class EditProfile extends Component {
+class EditProfile extends Component {
   state = {
     firstname: "",
     age: "",
-    email: "",
-    password: "",
+    newPassword: "",
     repeatPassword: "",
-    role: "",
-    gender: "",
-    passwordMatch: true,
+    currentPassword: "",
+    email: "",
+    city: "",
+    country: "",
+    height: "",
+    weight: "",
+    passwordMatch: false,
+    avatar: File,
+    avatarPreview: "",
+    showModal: false,
   };
 
+  async componentDidMount() {
+    await axios
+      .get(`${config.api_url}/users/find/${this.props.match.params.id}`)
+      .then((response) => {
+        const { user } = response.data;
+        this.setState({
+          firstname: user.firstname,
+          age: user.age,
+          email: user.email,
+          city: user.city,
+          country: user.country,
+          height: user.height,
+          weight: user.weight,
+          avatarPreview: user.avatar,
+        });
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  handleInputChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleFormSubmit = async (e, postRequest, credentials) => {
+    e.preventDefault();
+    console.log(postRequest);
+    console.log(credentials);
+
+    await axios
+      .put(`${config.api_url}/users/${postRequest}`, credentials)
+      .then((response) => {
+        this.handleShow();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  handleShow = () => this.setState({ showModal: true });
+
+  handleClose = () => this.setState({ showModal: false });
+
   render() {
+    const {
+      firstname,
+      email,
+      city,
+      age,
+      country,
+      height,
+      weight,
+      currentPassword,
+      newPassword,
+      repeatPassword,
+    } = this.state;
     return (
-      <Form onSubmit={this.handleFormSubmit}>
-        <Form.Row>
-          <Form.Group as={Col} controlId="formName">
-            <Form.Label>First name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="First Name"
-              name="firstname"
-              value={this.state.firstname}
-              onChange={this.handleInputChange}
-              autoComplete="firstname"
+      <>
+        <Tabs defaultActiveKey="main">
+          <Tab eventKey="main" title="Основне">
+            <ChangeMainInfo
+              handleInputChange={this.handleInputChange}
+              handleFormSubmit={this.handleFormSubmit}
+              firstname={firstname}
+              email={email}
+              city={city}
+              country={country}
+              age={age}
             />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} controlId="formAge">
-            <Form.Label>Age</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Age"
-              min="12"
-              max="99"
-              name="age"
-              autoComplete="age"
-              value={this.state.age}
-              onChange={this.handleInputChange}
+          </Tab>
+          <Tab eventKey="avatar" title="Аватар">
+            <ChangeAvatar />
+          </Tab>
+          <Tab eventKey="measurments" title="Показники">
+            <ChangeMeasurments
+              height={height}
+              weight={weight}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
             />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={this.state.email}
-            name="email"
-            onChange={this.handleInputChange}
-            autoComplete="email"
-          />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formRepeatPassword">
-          <Form.Label>Repeat Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="repeatPassword"
-            placeholder=" Repeat Password"
-            value={this.state.repeatPassword}
-            onChange={this.handleInputChange}
-          />
-        </Form.Group>
-
-        <Form.Group onChange={this.handleInputChange} id="form-role">
-          <Form.Label>Role:</Form.Label>
-
-          <Form.Check
-            type="radio"
-            label="Coach"
-            name="role"
-            id="coach-radio"
-            value="coach"
-          />
-          <Form.Check
-            type="radio"
-            label="Participant"
-            name="role"
-            id="participant-radio"
-            value="participant"
-          />
-        </Form.Group>
-
-        <Form.Group onChange={this.handleInputChange} id="form-gender">
-          <Form.Label>Gender:</Form.Label>
-
-          <Form.Check
-            type="radio"
-            label="Male"
-            name="gender"
-            id="male-radio"
-            value="male"
-          />
-          <Form.Check
-            type="radio"
-            label="Female"
-            name="gender"
-            id="female-radio"
-            value="female"
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+          </Tab>
+          <Tab eventKey="password" title="Зміна паролю">
+            <ChangePassword
+              currentPassword={currentPassword}
+              repeatPassword={repeatPassword}
+              newPassword={newPassword}
+              handleInputChange={this.handleInputChange}
+              handleFormSubmit={this.handleFormSubmit}
+            />
+          </Tab>
+        </Tabs>
+        <Modal show={this.state.showModal} onHide={this.handleClose} centered>
+          <Modal.Header closeButton>
+            <Modal.Body>Зміни збережено!</Modal.Body>
+          </Modal.Header>
+        </Modal>
+      </>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.auth.user };
+};
+
+export default connect(mapStateToProps, null)(withAuth(EditProfile));

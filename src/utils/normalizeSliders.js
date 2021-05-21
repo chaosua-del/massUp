@@ -1,6 +1,5 @@
 export default function normalizeSliders(slidersClass, swiperContainerClass) {
   const sliders = Array.from(document.getElementsByClassName(slidersClass));
-  console.log("slidres", sliders);
   let maxHeight = sliders[0].offsetHeight;
   sliders.forEach((slider) => {
     if (maxHeight < slider.offsetHeight) {

@@ -16,27 +16,34 @@ class Course extends Component {
     isMyProfile: false,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const id = this.props.match.params.id;
     try {
-      await fetchCourseById(id).then((response) => {
+      fetchCourseById(id).then((response) => {
+        console.log(response.data);
+        const isMyProfile =
+          this.props.id === response.data.coach_id ? true : false;
+        console.log(response.data);
         this.setState({
           courseName: response.data.courseName,
           coachId: response.data.coach_id,
+          isMyProfile,
           html: htmlToDraft({
             blocks: response.data.text,
+            entityMap: response.data.entityMap,
           }),
         });
-        console.log("data", response.data);
-
-        if (this.props.id === this.state.coachId) {
-          this.setState({
-            isMyProfile: true,
-          });
-        }
+        console.log(isMyProfile);
       });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.id !== prevProps.id) {
+      const isMyProfile = this.props.id === this.state.coachId ? true : false;
+      this.setState({ isMyProfile });
     }
   }
 
@@ -45,11 +52,11 @@ class Course extends Component {
 
     return (
       <Container>
-        <h3 className="mb-3">Course Name: {courseName}</h3>
+        <h3 className="mb-3">{courseName}</h3>
         <Link
           to={isMyProfile ? routes.myProfile : routes.profile + "/" + coachId}
         >
-          <Button> Show Coach</Button>
+          <Button>Показати тренера</Button>
         </Link>
         <hr />
         <div className="mt-5" dangerouslySetInnerHTML={{ __html: html }} />

@@ -9,6 +9,7 @@ import authSelectors from "../../redux/auth/authSelectors";
 import { Button } from "react-bootstrap";
 import authOperations from "../../redux/auth/authOperations";
 import config from "../../config";
+import defaultAvatar from "../../images/default-avatar.png";
 
 function NavigationBar({ isLoggedIn, firstName, onLogOut, avatar, id }) {
   return (
@@ -32,7 +33,9 @@ function NavigationBar({ isLoggedIn, firstName, onLogOut, avatar, id }) {
                 >
                   <img
                     style={{ objectFit: "cover", maxWidth: "100%" }}
-                    src={`${config.url}/uploads/${avatar}`}
+                    src={
+                      avatar ? `${config.url}/uploads/${avatar}` : defaultAvatar
+                    }
                     alt="avatar"
                   />
                 </div>

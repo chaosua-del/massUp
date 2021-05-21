@@ -17,6 +17,8 @@ class Register extends Component {
     repeatPassword: "",
     role: "",
     gender: "",
+    city: "Київ",
+    country: "Україна",
     passwordMatch: true,
   };
 
@@ -29,10 +31,20 @@ class Register extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const { firstname, age, email, password, role, gender } = this.state;
+    const { firstname, age, email, password, role, gender, country, city } =
+      this.state;
 
     if (this.state.password === this.state.repeatPassword) {
-      this.props.onRegister({ firstname, age, email, password, role, gender });
+      this.props.onRegister({
+        firstname,
+        age,
+        email,
+        password,
+        role,
+        gender,
+        country,
+        city,
+      });
     } else {
       this.setState({
         passwordMatch: false,
@@ -54,7 +66,7 @@ class Register extends Component {
       <Form onSubmit={this.handleFormSubmit}>
         <Form.Row>
           <Form.Group as={Col} controlId="formName">
-            <Form.Label>First name</Form.Label>
+            <Form.Label>Ім'я</Form.Label>
             <Form.Control
               type="text"
               placeholder="First Name"
@@ -68,7 +80,7 @@ class Register extends Component {
 
         <Form.Row>
           <Form.Group as={Col} controlId="formAge">
-            <Form.Label>Age</Form.Label>
+            <Form.Label>Вік</Form.Label>
             <Form.Control
               type="number"
               placeholder="Age"
@@ -83,7 +95,7 @@ class Register extends Component {
         </Form.Row>
 
         <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>E-mail</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -93,12 +105,12 @@ class Register extends Component {
             autoComplete="email"
           />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+            Ми ніколи не повідомимо ваш e-mail нікому іншому.
           </Form.Text>
         </Form.Group>
 
         <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Пароль</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
@@ -109,7 +121,7 @@ class Register extends Component {
         </Form.Group>
 
         <Form.Group controlId="formRepeatPassword">
-          <Form.Label>Repeat Password</Form.Label>
+          <Form.Label>Повторити пароль</Form.Label>
           <Form.Control
             type="password"
             name="repeatPassword"
@@ -119,46 +131,95 @@ class Register extends Component {
           />
         </Form.Group>
 
-        <Form.Group onChange={this.handleInputChange} id="form-role">
-          <Form.Label>Role:</Form.Label>
-
-          <Form.Check
-            type="radio"
-            label="Coach"
-            name="role"
-            id="coach-radio"
-            value="coach"
-          />
-          <Form.Check
-            type="radio"
-            label="Participant"
-            name="role"
-            id="participant-radio"
-            value="participant"
-          />
+        <Form.Group controlId="countrySelect">
+          <Form.Label>Виберіть Країну</Form.Label>
+          <Form.Control as="select">
+            <option defaultValue value="Україна">
+              Україна
+            </option>
+          </Form.Control>
         </Form.Group>
 
-        <Form.Group onChange={this.handleInputChange} id="form-gender">
-          <Form.Label>Gender:</Form.Label>
-
-          <Form.Check
-            type="radio"
-            label="Male"
-            name="gender"
-            id="male-radio"
-            value="male"
-          />
-          <Form.Check
-            type="radio"
-            label="Female"
-            name="gender"
-            id="female-radio"
-            value="female"
-          />
+        <Form.Group controlId="citySelect">
+          <Form.Label>Виберіть Місто</Form.Label>
+          <Form.Control
+            as="select"
+            name="city"
+            value={this.state.value}
+            onChange={this.handleInputChange}
+          >
+            <option value="Київ">Київ</option>
+            <option value="Харків">Харків</option>
+            <option value="Одеса">Одеса</option>
+            <option value="Дніпро">Дніпро</option>
+            <option value="Запоріжжя">Запоріжжя</option>
+            <option value="Львів">Львів</option>
+            <option value="Кривий Ріг">Кривий Ріг</option>
+            <option value="Миколаїв">Миколаїв</option>
+            <option value="Маріуполь">Маріуполь</option>
+            <option value="Вінниця">Вінниця</option>
+            <option value="Херсон">Херсон</option>
+            <option value="Полтава">Полтава</option>
+            <option value="Чернігів">Чернігів</option>
+            <option value="Черкаси">Черкаси</option>
+            <option value="Хмельницький">Хмельницький</option>
+            <option value="Чернівці">Чернівці</option>
+            <option value="Житомир">Житомир</option>
+            <option value="Суми">Суми</option>
+            <option value="Рівне">Рівне</option>
+            <option value="Івано-Франківськ">Івано-Франківськ</option>
+            <option value="Кропивницький">Кропивницький</option>
+            <option value="Тернопіль">Тернопіль</option>
+            <option value="Луцьк">Луцьк</option>
+            <option value="Ужгород">Ужгород</option>
+          </Form.Control>
         </Form.Group>
+        <div className="d-flex">
+          <Form.Group
+            onChange={this.handleInputChange}
+            id="form-role"
+            className="mr-5"
+          >
+            <Form.Label>Роль</Form.Label>
+
+            <Form.Check
+              type="radio"
+              label="Тренер"
+              name="role"
+              id="coach-radio"
+              value="coach"
+            />
+            <Form.Check
+              type="radio"
+              label="Користувач"
+              name="role"
+              id="participant-radio"
+              value="participant"
+            />
+          </Form.Group>
+
+          <Form.Group onChange={this.handleInputChange} id="form-gender">
+            <Form.Label>Стать:</Form.Label>
+
+            <Form.Check
+              type="radio"
+              label="Чоловіча"
+              name="gender"
+              id="male-radio"
+              value="male"
+            />
+            <Form.Check
+              type="radio"
+              label="Жіноча"
+              name="gender"
+              id="female-radio"
+              value="female"
+            />
+          </Form.Group>
+        </div>
 
         <Button variant="primary" type="submit">
-          Submit
+          Зареєструватися
         </Button>
       </Form>
     );

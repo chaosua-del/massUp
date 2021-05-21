@@ -22,6 +22,7 @@ const user = createReducer(initialUserState, {
     gender: payload.user.gender,
     city: payload.user.city,
     country: payload.user.country,
+    id: payload.user._id,
     avatar: null,
   }),
   [authActions.loginSuccess]: (_, { payload }) => ({
@@ -33,6 +34,7 @@ const user = createReducer(initialUserState, {
     city: payload.user.city,
     country: payload.user.country,
     avatar: payload.user.avatar,
+    id: payload.user._id,
   }),
   [authActions.getCurrentUserSuccess]: (_, { payload }) => ({
     email: payload.user.email,

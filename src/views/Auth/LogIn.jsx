@@ -32,7 +32,7 @@ class LogIn extends Component {
     return (
       <Form onSubmit={this.handleFormSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Е-mail</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -46,7 +46,7 @@ class LogIn extends Component {
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Пароль</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
@@ -56,7 +56,7 @@ class LogIn extends Component {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Submit
+          Увійти
         </Button>
       </Form>
     );

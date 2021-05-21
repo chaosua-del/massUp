@@ -10,8 +10,6 @@ import routes from "../../routes";
 import deleteCourseById from "../../utils/deleteCourseById";
 import fetchAllCoursesById from "../../utils/fetchAllCoursesById";
 import "./Slider.css";
-import { connect } from "react-redux";
-import authSelectors from "../../redux/auth/authSelectors";
 
 class Slider extends Component {
   state = {
@@ -146,10 +144,4 @@ class Slider extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    id: authSelectors.getId(state),
-  };
-};
-
-export default connect(mapStateToProps)(Slider);
+export default Slider;

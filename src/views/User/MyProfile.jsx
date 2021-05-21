@@ -45,25 +45,28 @@ class MyProfile extends Component {
                 <Card.Text>
                   {user.info ? user.info : "No information given"}
                 </Card.Text>
-                <Link to="/editProfile">
-                  <Button variant="secondary">Edit Profile</Button>
+                <Link to={routes.editProfile + "/" + user.id}>
+                  <Button variant="secondary">Редагувати профіль</Button>
                 </Link>
               </Card.Body>
             </Card>
-            <div className="mt-5 d-flex justify-content-center">
-              <Link to={routes.createCourse}>
-                {" "}
-                <Button variant="info" className="mr-2">
-                  New Course
-                </Button>
-              </Link>
-              <Button variant="info">New Group</Button>
-            </div>
+            {user.role === "coach" && (
+              <div className="mt-5 d-flex justify-content-center">
+                <Link to={routes.createCourse}>
+                  <Button variant="info" className="mr-2">
+                    Створити курс
+                  </Button>
+                </Link>
+                <Link to={routes.createRoom + "/" + user.id}>
+                  <Button variant="info">Створити кімнату</Button>
+                </Link>
+              </div>
+            )}
           </Col>
         </Row>
 
         {user.role === "coach" ? (
-          <CoachProfile isMyProfile={true} />
+          <CoachProfile isMyProfile={true} id={user.id} />
         ) : (
           <UserProfile />
         )}
