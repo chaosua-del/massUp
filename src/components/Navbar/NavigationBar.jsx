@@ -44,15 +44,15 @@ function NavigationBar({ isLoggedIn, firstName, onLogOut, avatar, id }) {
                 </span>
               </Link>
               <Button onClick={onLogOut} variant="dark">
-                Log Out
+                Вийти
               </Button>
             </div>
           ) : (
             <Nav className="ml-auto">
               <NavLink className="mr-3" to="/logIn">
-                LogIn
+                Увійти
               </NavLink>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink to="/register">Реєстрація</NavLink>
             </Nav>
           )}
         </Navbar.Collapse>

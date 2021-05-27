@@ -29,8 +29,8 @@ class EditProfile extends Component {
     showModal: false,
   };
 
-  async componentDidMount() {
-    await axios
+  componentDidMount() {
+    axios
       .get(`${config.api_url}/users/find/${this.props.match.params.id}`)
       .then((response) => {
         const { user } = response.data;

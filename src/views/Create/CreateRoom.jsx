@@ -21,7 +21,7 @@ class CreateRoom extends Component {
 
   handleClose = () => {};
 
-  async componentDidMount() {
+  componentDidMount() {
     fetchAllCoursesById(this.props.match.params.id)
       .then((response) => {
         this.setState({

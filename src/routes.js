@@ -10,6 +10,8 @@ const routes = {
   editProfile: "/editProfile",
   course: "/course",
   room: "/room",
+  showRooms: "/showRooms",
+  showCoaches: "/showCoaches",
 };
 
 export default routes;

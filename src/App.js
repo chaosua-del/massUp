@@ -20,6 +20,8 @@ import Course from "./views/Course/Course";
 import EditCourse from "./views/Course/EditCourse";
 import EditProfile from "./views/User/EditProfile";
 import CreateRoom from "./views/Create/CreateRoom";
+import ShowRooms from "./views/Show/ShowRooms";
+import ShowCoaches from "./views/Show/ShowCoaches";
 import Room from "./views/Room/Room";
 
 class App extends Component {
@@ -48,6 +50,8 @@ class App extends Component {
           <Route path={routes.createRoom + "/:id"} component={CreateRoom} />
           <Route path={routes.editCourse + "/:id"} component={EditCourse} />
           <Route path={routes.course + "/:id"} component={Course} />
+          <Route path={routes.showRooms} component={ShowRooms} />
+          <Route path={routes.showCoaches} component={ShowCoaches} />
         </Switch>
       </>
     );

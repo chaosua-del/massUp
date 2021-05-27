@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, ListGroup } from "react-bootstrap";
 import fetchRoomById from "../../utils/fetchRoomById";
 import { connect } from "react-redux";
 import authSelectors from "../../redux/auth/authSelectors";
@@ -46,7 +46,8 @@ class Room extends Component {
   }
 
   render() {
-    const { courseId, roomName, coachId, isMyProfile, roomId } = this.state;
+    const { courseId, roomName, coachId, isMyProfile, roomId, users } =
+      this.state;
     return (
       <Container>
         <h3 className="mb-4">
@@ -62,6 +63,7 @@ class Room extends Component {
         </Link>
         <hr />
         <h4>Учасники:</h4>
+        {users.length > 0 ? <ListGroup></ListGroup> : <p>Учаників немає</p>}
       </Container>
     );
   }

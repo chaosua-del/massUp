@@ -40,11 +40,14 @@ class MyProfile extends Component {
                   {user.country + ", " + user.city})
                 </Card.Title>
                 <Card.Subtitle className="mb-4 mt-2 text-muted text-uppercase">
-                  {user.role}
+                  {user.role === "coach" ? "Тренер" : "Учасник"}
                 </Card.Subtitle>
+                <hr />
                 <Card.Text>
-                  {user.info ? user.info : "No information given"}
+                  <h6>Про себе:</h6>
+                  {user.info ? user.info : "Немає інформації"}
                 </Card.Text>
+                <hr />
                 <Link to={routes.editProfile + "/" + user.id}>
                   <Button variant="secondary">Редагувати профіль</Button>
                 </Link>
