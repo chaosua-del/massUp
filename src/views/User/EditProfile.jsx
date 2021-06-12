@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Modal, Tab, Tabs } from "react-bootstrap";
-import withAuth from "../../hoc/withAuth";
 import { connect } from "react-redux";
 import config from "../../config";
 import axios from "axios";
@@ -10,6 +9,7 @@ import {
   ChangeMeasurments,
   ChangePassword,
 } from "../../components/EditComonents";
+import withMount from "../../hoc/withMount";
 
 class EditProfile extends Component {
   state = {
@@ -134,4 +134,4 @@ const mapStateToProps = (state) => {
   return { user: state.auth.user };
 };
 
-export default connect(mapStateToProps, null)(withAuth(EditProfile));
+export default connect(mapStateToProps, null)(withMount(EditProfile));

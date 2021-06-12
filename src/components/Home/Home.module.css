@@ -1,0 +1,92 @@
+.card {
+  width: 290px;
+  height: 400px;
+  border-radius: 64px;
+  overflow: hidden;
+  display: flex;
+}
+
+.card img {
+  object-fit: cover;
+}
+
+.card:nth-child(1) {
+  transform: rotate(-10deg) translateX(10px);
+
+}
+
+
+.card:nth-child(2) {
+  z-index: 10;
+  margin-top: -50px;
+  position: relative;
+}
+
+.card:nth-child(3) {
+  transform: rotate(10deg) translateX(-10px);
+}
+
+.cardText {
+  position: absolute;
+  font-family: 'Saira Stencil One', cursive;
+  font-size: 3rem;
+  color: #FFFFFF;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+.heroText {
+  position: absolute;
+  right: -100px;
+  top: 50%;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transform: rotate(90deg) translateY(-50%);
+}
+
+.heroBanner {
+  margin-top: 50px;
+  background-color: #000000;
+  color: #FFFFFF;
+  height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  border-radius: 9px;
+  font-family: 'Saira Stencil One', cursive;
+  max-width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2rem;
+}
+
+.main {
+  background-color: #f8f9fa;
+}
+
+.mainCard {
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .card:nth-child(1) {
+    display: none;
+
+  }
+
+  .card:nth-child(3) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .heroText {
+    display: none;
+  }
+}

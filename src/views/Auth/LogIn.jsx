@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import withAuth from "../../hoc/withAuth";
+import withMount from "../../hoc/withMount";
 import { connect } from "react-redux";
 import authOperations from "../../redux/auth/authOperations";
 
@@ -64,5 +64,5 @@ class LogIn extends Component {
 }
 
 export default connect(null, { onLogin: authOperations.logIn })(
-  withAuth(LogIn)
+  withMount(LogIn)
 );

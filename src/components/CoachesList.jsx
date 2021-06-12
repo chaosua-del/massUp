@@ -16,8 +16,8 @@ export default function CoachesList({ coaches }) {
   return (
     <Row>
       {coaches.map((coach) => (
-        <Col lg={4} sm={6} xs={12}>
-          <Card key={coach._id} style={{ width: "18rem" }}>
+        <Col lg={4} sm={6} xs={12} key={coach._id}>
+          <Card style={{ width: "18rem" }} className="mb-4">
             <div className="d-flex" style={styles.cardImage}>
               <Card.Img
                 variant="top"

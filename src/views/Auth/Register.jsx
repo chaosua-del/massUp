@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import { connect } from "react-redux";
 
-import withAuth from "../../hoc/withAuth";
+import withMount from "../../hoc/withMount";
 import authOperations from "../../redux/auth/authOperations";
 
 class Register extends Component {
@@ -227,5 +227,5 @@ class Register extends Component {
 }
 
 export default connect(null, { onRegister: authOperations.register })(
-  withAuth(Register)
+  withMount(Register)
 );

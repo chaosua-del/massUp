@@ -27,7 +27,6 @@ export default class RoomList extends Component {
         this.setState({
           rooms: response.data,
         });
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
   }
@@ -58,7 +57,7 @@ export default class RoomList extends Component {
                     {isMyProfile && room.users.length < 1 && (
                       <Button
                         className="ml-2"
-                        variant="danger"
+                        variant="dark"
                         onClick={() => this.handleDeleteRoom(room._id)}
                       >
                         Видалити

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import config from "../../config";
 import { connect } from "react-redux";
 import styles from "./Profile.module.css";
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import CoachProfile from "./CoachProfile";
 import UserProfile from "./UserProfile";
 import routes from "../../routes";
+import star from "../../images/star-full.svg";
 
 class MyProfile extends Component {
   state = {
@@ -17,7 +18,11 @@ class MyProfile extends Component {
   render() {
     const { user } = this.props;
     console.log(config.api_url + "/uploads/" + user.avatar);
-    return (
+    return user.firstname == null ? (
+      <Container>
+        <Spinner animation="border" variant="primary" />
+      </Container>
+    ) : (
       <Container className="pt-4">
         <Row className="d-flex justify-content-center mt-5">
           <Col lg="4" className="d-flex justify-content-center mb-3">
@@ -39,12 +44,20 @@ class MyProfile extends Component {
                   {user.firstname + ", " + user.age}. (
                   {user.country + ", " + user.city})
                 </Card.Title>
-                <Card.Subtitle className="mb-4 mt-2 text-muted text-uppercase">
+                <Card.Subtitle className="mb-4 mt-2 text-muted text-uppercase d-flex align-items-center">
                   {user.role === "coach" ? "Тренер" : "Учасник"}
+                  {user.role === "coach" && user.rating && (
+                    <div className="d-flex align-items-center">
+                      <div className={styles.star + " ml-4 mr-2"}>
+                        <img src={star} alt="rating" />
+                      </div>
+                      <span>{user.rating}</span>
+                    </div>
+                  )}
                 </Card.Subtitle>
                 <hr />
                 <Card.Text>
-                  <h6>Про себе:</h6>
+                  <b className="d-block">Про себе:</b>
                   {user.info ? user.info : "Немає інформації"}
                 </Card.Text>
                 <hr />
@@ -71,7 +84,7 @@ class MyProfile extends Component {
         {user.role === "coach" ? (
           <CoachProfile isMyProfile={true} id={user.id} />
         ) : (
-          <UserProfile />
+          <UserProfile joinedRoom={user.joinedRoom} />
         )}
       </Container>
     );

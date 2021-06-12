@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import withAuth from "../../hoc/withAuth";
 import fetchAllCoursesById from "../../utils/fetchAllCoursesById";
 import { Form, Button, Modal } from "react-bootstrap";
 import config from "../../config";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
+import withMount from "../../hoc/withMount";
 
 class CreateRoom extends Component {
   state = {
@@ -134,4 +134,4 @@ class CreateRoom extends Component {
   }
 }
 
-export default withAuth(CreateRoom);
+export default withMount(CreateRoom);

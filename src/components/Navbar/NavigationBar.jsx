@@ -10,12 +10,16 @@ import { Button } from "react-bootstrap";
 import authOperations from "../../redux/auth/authOperations";
 import config from "../../config";
 import defaultAvatar from "../../images/default-avatar.png";
+import logo from "../../images/logo.png.png";
+import styles from "./NavigationBar.module.css";
 
 function NavigationBar({ isLoggedIn, firstName, onLogOut, avatar, id }) {
   return (
     <Navbar bg="light" expand="lg" className="py-4 mb-5">
       <Container>
-        <NavLink to={routes.home}>MassUp</NavLink>
+        <NavLink className={styles.logo} to={routes.home}>
+          <img src={logo} alt="logo" />
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="align-items-center">
           {isLoggedIn ? (

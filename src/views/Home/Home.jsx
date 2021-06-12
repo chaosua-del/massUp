@@ -1,13 +1,18 @@
 import React, { Component } from "react";
-import { Container, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import routes from "../../routes";
+import Hero from "../../components/Home/Hero";
+import Main from "../../components/Home/Main";
+import Footer from "../../components/Footer";
 
 export default class Home extends Component {
   render() {
     return (
-      <Container>
-        <Row>
+      <>
+        <Hero />
+        <Main />
+        <Footer />
+      </>
+
+      /* <Row>
           <Col lg="4">
             <Link to={routes.showRooms}>
               <Button>Show Rooms</Button>
@@ -19,8 +24,7 @@ export default class Home extends Component {
             </Link>
           </Col>
           <Col lg="4"></Col>
-        </Row>
-      </Container>
+        </Row> */
     );
   }
 }

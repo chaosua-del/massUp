@@ -4,11 +4,11 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-function withAuth(WrappedComponent) {
+function withMount(WrappedComponent) {
   return class extends Component {
     render() {
       return (
-        <Container>
+        <Container className="pb-5">
           <Row className="justify-content-center">
             <Col lg={6}>
               <WrappedComponent {...this.props} />
@@ -20,4 +20,4 @@ function withAuth(WrappedComponent) {
   };
 }
 
-export default withAuth;
+export default withMount;

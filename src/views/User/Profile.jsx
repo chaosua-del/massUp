@@ -11,6 +11,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import authSelectors from "../../redux/auth/authSelectors";
 import routes from "../../routes";
+import star from "../../images/star-full.svg";
 
 class Profile extends Component {
   state = {
@@ -68,8 +69,16 @@ class Profile extends Component {
                       {user.firstname + ", " + user.age}. (
                       {user.country + ", " + user.city})
                     </Card.Title>
-                    <Card.Subtitle className="mb-4 mt-2 text-muted">
+                    <Card.Subtitle className="mb-4 mt-2 text-muted d-flex align-items-center">
                       {user.role === "coach" ? "Тренер" : "Учасник"}
+                      {user.role === "coach" && user.rating && (
+                        <div className="d-flex align-items-center">
+                          <div className={styles.star + " ml-4 mr-2"}>
+                            <img src={star} alt="rating" />
+                          </div>
+                          <span>{user.rating}</span>
+                        </div>
+                      )}
                     </Card.Subtitle>
                     <Card.Text>
                       {user.info ? user.info : "Немає інформації"}
@@ -98,7 +107,11 @@ class Profile extends Component {
             {user.role === "coach" ? (
               <CoachProfile id={user._id} isMyProfile={isMyProfile} />
             ) : (
-              <UserProfile id={user._id} isMyProfile={isMyProfile} />
+              <UserProfile
+                id={user._id}
+                isMyProfile={isMyProfile}
+                joinedRoom={user.joinedRoom}
+              />
             )}
           </div>
         ) : (

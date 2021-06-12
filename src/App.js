@@ -23,6 +23,9 @@ import CreateRoom from "./views/Create/CreateRoom";
 import ShowRooms from "./views/Show/ShowRooms";
 import ShowCoaches from "./views/Show/ShowCoaches";
 import Room from "./views/Room/Room";
+import PublicRoute from "./components/PublicRoute";
+import PrivateRoute from "./components/PrivateRoute";
+import CoachRoute from "./components/CoachRoute";
 
 class App extends Component {
   componentDidMount() {
@@ -36,23 +39,59 @@ class App extends Component {
 
         <Switch>
           <Route exact path={routes.home} component={Home} />
-          <Route exact path={routes.logIn} component={LogIn} />
-          <Route exact path={routes.register} component={Register} />
+
+          <PublicRoute
+            exact
+            path={routes.logIn}
+            component={LogIn}
+            redirect={routes.myProfile}
+          />
+          <PublicRoute
+            exact
+            path={routes.register}
+            component={Register}
+            redirect={routes.myProfile}
+          />
           <Route exact path={routes.profile + "/:id"} component={Profile} />
-          <Route exact path={routes.myProfile} component={MyProfile} />
-          <Route exact path={routes.createCourse} component={CreateCourse} />
-          <Route
+          <PrivateRoute
+            exact
+            path={routes.myProfile}
+            component={MyProfile}
+            redirect={routes.logIn}
+          />
+          <CoachRoute
+            exact
+            path={routes.createCourse}
+            component={CreateCourse}
+            redirect={routes.logIn}
+          />
+          <PrivateRoute
             exact
             path={routes.editProfile + "/:id"}
             component={EditProfile}
+            redirect={routes.logIn}
           />
-          <Route path={routes.room + "/:id"} component={Room} />
-          <Route path={routes.createRoom + "/:id"} component={CreateRoom} />
-          <Route path={routes.editCourse + "/:id"} component={EditCourse} />
+          <PrivateRoute
+            path={routes.room + "/:id"}
+            component={Room}
+            redirect={routes.logIn}
+          />
+          <CoachRoute
+            path={routes.createRoom + "/:id"}
+            component={CreateRoom}
+            redirect={routes.myProfile}
+          />
+          <CoachRoute
+            path={routes.editCourse + "/:id"}
+            component={EditCourse}
+            redirect={routes.myProfile}
+          />
           <Route path={routes.course + "/:id"} component={Course} />
           <Route path={routes.showRooms} component={ShowRooms} />
           <Route path={routes.showCoaches} component={ShowCoaches} />
         </Switch>
+
+        {/* <Footer /> */}
       </>
     );
   }

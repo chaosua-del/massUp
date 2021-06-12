@@ -11,6 +11,7 @@ const initialUserState = {
   city: null,
   country: null,
   avatar: null,
+  rating: null,
 };
 
 const user = createReducer(initialUserState, {
@@ -23,6 +24,7 @@ const user = createReducer(initialUserState, {
     city: payload.user.city,
     country: payload.user.country,
     id: payload.user._id,
+    joinedRoom: payload.user.joinedRoom,
     avatar: null,
   }),
   [authActions.loginSuccess]: (_, { payload }) => ({
@@ -35,6 +37,9 @@ const user = createReducer(initialUserState, {
     country: payload.user.country,
     avatar: payload.user.avatar,
     id: payload.user._id,
+    rating: payload.user.rating,
+    height: payload.user.height,
+    weight: payload.user.weight,
   }),
   [authActions.getCurrentUserSuccess]: (_, { payload }) => ({
     email: payload.user.email,
@@ -45,7 +50,11 @@ const user = createReducer(initialUserState, {
     city: payload.user.city,
     country: payload.user.country,
     avatar: payload.user.avatar,
+    joinedRoom: payload.user.joinedRoom,
     id: payload.user._id,
+    rating: payload.user.rating,
+    height: payload.user.height,
+    weight: payload.user.weight,
   }),
   [authActions.logOutSuccess]: () => initialUserState,
 });

@@ -8,7 +8,7 @@ import config from "../../config";
 export default class ShowCoaches extends Component {
   state = {
     coaches: [],
-    coachesPerPage: 10,
+    coachesPerPage: 3,
     currentPage: 1,
     isLoading: false,
   };
